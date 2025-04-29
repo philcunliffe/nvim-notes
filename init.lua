@@ -70,6 +70,24 @@ require("lazy").setup({
       completion = {
         nvim_cmp = true, -- Integrate with nvim-cmp if installed
       },
+    picker = {
+    -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
+    name = "telescope.nvim",
+    -- Optional, configure key mappings for the picker. These are the defaults.
+    -- Not all pickers support all mappings.
+    note_mappings = {
+      -- Create a new note from your query.
+      new = "<C-x>",
+      -- Insert a link to the selected note.
+      insert_link = "<C-l>",
+    },
+    tag_mappings = {
+      -- Add tag(s) to current note.
+      tag_note = "<C-x>",
+      -- Insert a tag at the current location.
+      insert_tag = "<C-l>",
+    },
+  },
 
       -- Optional: Define keymappings for obsidian actions
       mappings = {
@@ -79,27 +97,6 @@ require("lazy").setup({
             return require("obsidian").util.gf_passthrough()
           end,
           opts = { noremap = false, expr = true, buffer = true },
-        },
-        -- Find notes based on title/filename
-        ["<leader>of"] = {
-          action = function()
-            require("telescope").extensions.obsidian.find_notes()
-          end,
-          opts = { noremap = true, silent = true, desc = "Obsidian Find Note" },
-        },
-        -- Find backlinks to the current note
-        ["<leader>ob"] = {
-          action = function()
-             require("telescope").extensions.obsidian.backlinks()
-          end,
-          opts = { noremap = true, silent = true, desc = "Obsidian Backlinks" },
-        },
-        -- Open today's daily note
-        ["<leader>od"] = {
-           action = function()
-              require("obsidian").util.open_daily_note()
-           end,
-           opts = { noremap = true, silent = true, desc = "Obsidian Daily Note"},
         },
       },
 
@@ -182,6 +179,10 @@ require("lazy").setup({
 
 })
 
+vim.keymap.set('n', '<leader>ob', ':ObsidianBacklinks<CR>', { noremap = true, silent = true, desc = 'Show backlinks' }) 
+vim.keymap.set('n', '<leader>on', ':ObsidianSearch<CR>', { noremap = true, silent = true, desc = 'Obsidian quick switch' })
+vim.keymap.set('n', '<leader>oe', ':ObsidianExtractNote<CR>', { noremap = true, silent = true, desc = 'Obsidian extract and link' })
+vim.keymap.set('n', '<leader>ol', ':ObsidianLinks<CR>', { noremap = true, silent = true, desc = 'Obsidian show links' })
 
 -- Basic settings (optional but recommended)
 vim.opt.number = true         -- Show line numbers
