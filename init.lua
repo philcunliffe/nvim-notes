@@ -64,7 +64,7 @@ require("lazy").setup({
     },
     opts = {
       -- Define the path to your Obsidian vault directory
-      dir = "~/workspace/filco/garden", -- IMPORTANT: Change this to your actual vault path
+      dir = "/notes",
 
       -- Optional: Configure how links are completed, tags searched, etc.
       completion = {
